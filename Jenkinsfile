@@ -2,11 +2,9 @@ pipeline {
     agent any
 
     environment {
-        JMETER_VERSION = "5.6.3"
-        JMETER_HOME = "C:/Users/samsung/OneDrive/바탕 화면/apache-jmeter-${JMETER_VERSION}"
-    
-        JTL_REPORT_FILE = "C:/Users/samsung/OneDrive/바탕 화면/apache-jmeter-5.6.3/bin/results/results.jtl"
-        HTML_REPORT_DIR = "C:/Users/samsung/OneDrive/바탕 화면/apache-jmeter-5.6.3/bin/results/report_output"
+        JMETER_HOME = "/opt/jmeter"
+        JTL_REPORT_FILE = "/opt/jmeter/bin/results/results.jtl"
+        HTML_REPORT_DIR = "/opt/jmeter/bin/results/report_output"
     }
 
     stages {
