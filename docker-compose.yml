@@ -1,0 +1,20 @@
+services: # 최상위 키워드로, 여러 개의 서비스(컨테이너)를 정의하는 블록
+  jenkins: # 서비스 이름 (docker-compose 내부에서 참조용으로 사용됨)
+    build: # 이미지 빌드 관련 설정
+      context: . # 현재 디렉토리를 빌드 컨텍스트로 사용
+      dockerfile: dockerfile # 사용할 Dockerfile 이름 (기본값도 'Dockerfile')
+    container_name: 250424_jMeter # 생성될 컨테이너의 이름을 'jenkins'로 지정
+    restart: unless-stopped # 컨테이너가 중지되지 않는 한 자동 재시작 설정
+    ports:
+      - "9000:8080" # 호스트의 9000 포트를 컨테이너의 8080 포트에 매핑
+    environment:
+      - JENKINS_OPTS="--httpPort=8080" # Jenkins의 HTTP 포트를 8080으로 설정
+    volumes:
+      - jenkins_home:/var/jenkins_home # 도커 볼륨 'jenkins_home'을 Jenkins 데이터 디렉토리로 마운트
+      - /var/run/docker.sock:/var/run/docker.sock # 호스트의 Docker 소켓 공유 (컨테이너 안에서 Docker 실행 가능하게 함)
+      - /usr/bin/docker:/usr/bin/docker # 호스트의 Docker 바이너리 공유
+      - C:\Users\samsung\OneDrive\바탕 화면\apache-jmeter-5.6.3:/opt/jmeter  # 호스트의 JMeter 폴더를 컨테이너 내 /opt/jmeter로 마운트
+    user: root # 컨테이너를 root 사용자로 실행
+
+volumes:
+  jenkins_home: # 위에서 참조한 'jenkins_home' 도커 볼륨 정의 (빈 값으로 두면 자동 생성됨)
